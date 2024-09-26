@@ -18,12 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "lwip.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "PCF8574.h"
 
 /* USER CODE END Includes */
 
@@ -83,19 +85,34 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+#if 0
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LWIP_Init();
   MX_USART1_UART_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
-  printf("    _/      _/                                \n");
-  printf("   _/_/  _/_/    _/_/_/  _/  _/_/    _/_/_/   \n");
-  printf("  _/  _/  _/  _/    _/  _/_/      _/_/        \n");
-  printf(" _/      _/  _/    _/  _/            _/_/     \n");
-  printf("_/      _/    _/_/_/  _/        _/_/_/        \n");
+#endif
+  MX_GPIO_Init();
+  MX_USART1_UART_Init();
+  MX_I2C2_Init();
+
+  printf("    _/      _/                                \r\n");
+  printf("   _/_/  _/_/    _/_/_/  _/  _/_/    _/_/_/   \r\n");
+  printf("  _/  _/  _/  _/    _/  _/_/      _/_/        \r\n");
+  printf(" _/      _/  _/    _/  _/            _/_/     \r\n");
+  printf("_/      _/    _/_/_/  _/        _/_/_/        \r\n");
+
+  PCF8574_init();
+  HAL_Delay(100);
+  PCF8574_set_bit(7, 0);
+  HAL_Delay(100);
+  MX_LWIP_Init();
+
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

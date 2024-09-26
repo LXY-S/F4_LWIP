@@ -28,7 +28,7 @@
 #include "ethernetif.h"
 
 /* USER CODE BEGIN 0 */
-
+#include <stdio.h>
 /* USER CODE END 0 */
 /* Private function prototypes -----------------------------------------------*/
 static void ethernet_link_status_updated(struct netif *netif);
@@ -64,14 +64,14 @@ void MX_LWIP_Init(void)
   IP_ADDRESS[1] = 168;
   IP_ADDRESS[2] = 1;
   IP_ADDRESS[3] = 240;
-  NETMASK_ADDRESS[0] = 0;
-  NETMASK_ADDRESS[1] = 0;
-  NETMASK_ADDRESS[2] = 0;
+  NETMASK_ADDRESS[0] = 255;
+  NETMASK_ADDRESS[1] = 255;
+  NETMASK_ADDRESS[2] = 255;
   NETMASK_ADDRESS[3] = 0;
-  GATEWAY_ADDRESS[0] = 0;
-  GATEWAY_ADDRESS[1] = 0;
-  GATEWAY_ADDRESS[2] = 0;
-  GATEWAY_ADDRESS[3] = 0;
+  GATEWAY_ADDRESS[0] = 192;
+  GATEWAY_ADDRESS[1] = 168;
+  GATEWAY_ADDRESS[2] = 1;
+  GATEWAY_ADDRESS[3] = 1;
 
 /* USER CODE BEGIN IP_ADDRESSES */
 /* USER CODE END IP_ADDRESSES */
@@ -168,7 +168,7 @@ static void ethernet_link_status_updated(struct netif *netif)
 /* USER CODE BEGIN 5 */
 	  uint32_t tmp = netif->ip_addr.addr;
 	  uint8_t *ip = (uint8_t *)(&tmp);
-	  printf("STM32F429 ID: %d.%d.%d.%d\n", ip[0],ip[1],ip[2],ip[3]);
+	  printf("STM32F429 IP: %d.%d.%d.%d\r\n", ip[0],ip[1],ip[2],ip[3]);
 /* USER CODE END 5 */
   }
   else /* netif is down */
